@@ -70,7 +70,7 @@ def delete_data_muti(number, search_time_limit, search_time_limit_num, zone):
     text=''
     handle_number = 0
     list = search_daodao(search_time_limit, search_time_limit_num, zone)
-    if len(list) > number:
+    if len(list) > int(number):
         handle_number = number
     else:
         handle_number = len(list)
@@ -166,7 +166,7 @@ def judge_time_excit(list, time):
     flag = False
     last_issue_number = 0
     for i in list:
-        if i['number'] > last_issue_number:
+        if int(i['number']) > int(last_issue_number):
             last_issue_number = i['number']
         if i['title'] == str(time):
             flag = True
