@@ -1,0 +1,8 @@
+setting:
+  data: 'test'
+  zone: 8
+  search_time_limit: 3
+  search_time_limit_num: 5
+  token: '987dd7e39c133fddfb9bc66a3ed8c3bfc5de0ef3'
+  user: 'zfour'
+  repo: 'daodao'
