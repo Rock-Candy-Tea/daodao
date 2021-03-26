@@ -260,7 +260,7 @@ class handler(BaseHTTPRequestHandler):
 
         o = parse.urlparse(self.path)
         if parse.parse_qs(o.query)['creat'][0]:
-            data = parse.parse_qs(o.query)['data'][0]
+            data = parse.parse_qs(o.query)['creat'][0]
             text = creat_data(now_time, user_info, data, since)
         if parse.parse_qs(o.query)['delete'][0]:
             num = parse.parse_qs(o.query)['delete'][0]
