@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/daodao_creat.py",
+      "destination": "/creat"
+    },
+    {
+      "source": "/api/daodao_delete.py",
+      "destination": "/delete"
+    }
+  ]
+}
