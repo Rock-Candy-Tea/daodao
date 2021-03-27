@@ -8,6 +8,7 @@ from datetime import timedelta
 from http.server import BaseHTTPRequestHandler
 from urllib import parse
 import user_agents
+import json
 
 # 增加叨叨 -------------------start
 def creat_data(time, user_info, data, since):
@@ -267,7 +268,7 @@ class handler(BaseHTTPRequestHandler):
                 limit = int(parse.parse_qs(o.query)['t'][0])
             else:
                 limit = search_time_limit
-            text = search_daodao(user_info, limit, num)
+            text = json.dumps(search_daodao(user_info, limit, num))
         else:
             text = 'please check!'
 
@@ -275,7 +276,7 @@ class handler(BaseHTTPRequestHandler):
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Content-type', 'text/plain')
         self.end_headers()
-        self.wfile.write(text.encode())
+        self.wfile.write(text.encode('utf-8'))
     # 增加一条叨叨
     #creat_data(now_time, user_info, data,since)
     # 查询m天前的n条叨叨
