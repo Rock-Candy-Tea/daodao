@@ -259,10 +259,11 @@ class handler(BaseHTTPRequestHandler):
         since = search_time(search_time_limit)
 
         print('当地时间为：', now_time)
+        user_agent = user_agents.parse(self.headers['User-Agent'])
         o = parse.urlparse(self.path)
         if 'creat' in parse.parse_qs(o.query):
             data = parse.parse_qs(o.query)['creat'][0]
-            text = creat_data(now_time, user_info, '{"content":'+ data+',\n"user_agents":"'+'"}',  since)
+            text = creat_data(now_time, user_info, '{"content":'+ data+',\n"user_agents":"'+user_agent+'"}',  since)
         elif 'delete' in parse.parse_qs(o.query):
             num = parse.parse_qs(o.query)['delete'][0]
             text = delete_data_muti(num,search_time_limit, search_time_limit_num, zone)
