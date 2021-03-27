@@ -72,11 +72,11 @@ def delete_data_muti(number,user_info,  search_time_limit, search_time_limit_num
     text=''
     handle_number = 0
     list = search_daodao(user_info, search_time_limit, search_time_limit_num, zone)
-    if len(list) > int(number):
+    if int(len(list)) > int(number):
         handle_number = number
     else:
         handle_number = len(list)
-    if handle_number > 0:
+    if int(handle_number) > 0:
         for i in list[0:handle_number]:
             delete_data(i['id'])
         text= 'Execution: deleted latest '+str(handle_number)+' daodao!'
