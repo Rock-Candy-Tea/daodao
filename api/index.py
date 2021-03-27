@@ -284,8 +284,9 @@ class handler(BaseHTTPRequestHandler):
         user_agent = user_agents.parse(self.headers['User-Agent'])
         o = parse.urlparse(self.path)
         if 'a' in parse.parse_qs(o.query):
-            data = parse.parse_qs(o.query)['a'][0].split(',',1)
-            text = change_data_handle(data[0],data[1],'combine',search_time_limit, search_time_limit_num, zone,now_time, user_info, since)
+            data = parse.parse_qs(o.query)['a'][0]
+            data = data.split(',',1)
+            text = change_data_handle(int(data[0]),data[1],'combine',search_time_limit, search_time_limit_num, zone,now_time, user_info, since)
         if 'c' in parse.parse_qs(o.query):
             data = parse.parse_qs(o.query)['c'][0]
             text = creat_data(now_time, user_info, '{"content":"'+ data+'",\n"user_agents":"'+str(user_agent)+'"}',  since)
