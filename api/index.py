@@ -264,7 +264,7 @@ class handler(BaseHTTPRequestHandler):
     # 传入数据
         config = load_yaml_config('./config.yml')['setting']
     # 默认测试数据
-        data = config['data']
+        data = ''
     # 时区
         zone = config['zone']
     # 查询天数
