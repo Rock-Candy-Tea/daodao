@@ -7,16 +7,17 @@ from datetime import datetime
 from datetime import timedelta
 from http.server import BaseHTTPRequestHandler
 from urllib import parse
+from user_agents import parse as user_agents_parse
 
 # 增加叨叨 -------------------start
 def creat_data(time, user_info, data, since):
     text=''
     judegement = judge_time_excit(github_daodao_config(user_info, since), time)
     if (judegement['flag']):
-        text = '执行:今日已发送叨叨，查找issue，添加评论！'
+        text = 'Execution: Today has sent daodao, find issue, add comment!'
         creat_a_new_comments(user_info, judegement['last_issue_number'], data)
     else:
-        text = '执行:今日未发送叨叨，新建issue，添加评论！'
+        text = 'Execution: You did not send a message today, create an issue and add a comment!'
         creat_a_new_day_issue(user_info, time)
         judegement = judge_time_excit(github_daodao_config(user_info, since), time)
         creat_a_new_comments(user_info, judegement['last_issue_number'], data)
@@ -78,9 +79,9 @@ def delete_data_muti(number, search_time_limit, search_time_limit_num, zone):
     if handle_number > 0:
         for i in list[0:handle_number]:
             delete_data(i['id'])
-        text= '已删除最新'+handle_number+'条叨叨!'
+        text= 'Execution: Deleted latest'+handle_number+'daodao!'
     else:
-        text='你居然一条叨叨都没有了！'
+        text="Execution: You don't have a word to say!"
     return text
 
 
@@ -261,9 +262,10 @@ class handler(BaseHTTPRequestHandler):
         print('当地时间为：', now_time)
 
         o = parse.urlparse(self.path)
+        user_agents = str(user_agents_parse(self.user-agent))
         if 'creat' in parse.parse_qs(o.query):
             data = parse.parse_qs(o.query)['creat'][0]
-            text = creat_data(now_time, user_info, data, since)
+            text = creat_data(now_time, user_info,'{"content":'+ data+',\n"user_agents":"'+user_agents+'"}', since)
         elif 'delete' in parse.parse_qs(o.query):
             num = parse.parse_qs(o.query)['delete'][0]
             text = delete_data_muti(num,search_time_limit, search_time_limit_num, zone)
