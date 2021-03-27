@@ -14,10 +14,10 @@ def creat_data(time, user_info, data, since):
     text=''
     judegement = judge_time_excit(github_daodao_config(user_info, since), time)
     if (judegement['flag']):
-        text = '执行:今日已发送叨叨，查找issue，添加评论！'
+        text = 'Execution: today has sent daodao, find issue, add comment!'
         creat_a_new_comments(user_info, judegement['last_issue_number'], data)
     else:
-        text = '执行:今日未发送叨叨，新建issue，添加评论！'
+        text = 'Execution: you did not send a message today, create an issue and add a comment!'
         creat_a_new_day_issue(user_info, time)
         judegement = judge_time_excit(github_daodao_config(user_info, since), time)
         creat_a_new_comments(user_info, judegement['last_issue_number'], data)
@@ -79,9 +79,9 @@ def delete_data_muti(number, search_time_limit, search_time_limit_num, zone):
     if handle_number > 0:
         for i in list[0:handle_number]:
             delete_data(i['id'])
-        text= '已删除最新'+handle_number+'条叨叨!'
+        text= 'Execution: deleted latest'+handle_number+'daodao!'
     else:
-        text='你居然一条叨叨都没有了！'
+        text='Execution: there is no daodao!'
     return text
 
 
@@ -122,7 +122,7 @@ def change_data_handle(number, data, type, search_time_limit, search_time_limit_
         elif type == "edit":
             handle_data = data
         if len(list) < number:
-            text ='输入错误，请重新输入！'
+            text ='Incorrect input, please reenter!'
         else:
             change_data(handle_id, handle_data)
             text ='已更新第%s条叨叨为%s' % (str(number), handle_data)
@@ -263,7 +263,7 @@ class handler(BaseHTTPRequestHandler):
         o = parse.urlparse(self.path)
         if 'creat' in parse.parse_qs(o.query):
             data = parse.parse_qs(o.query)['creat'][0]
-            text = creat_data(now_time, user_info, '{"content":'+ data+',\n"user_agents":"'+user_agent+'"}',  since)
+            text = creat_data(now_time, user_info, '{"content":'+ data+',\n"user_agents":"'+str(user_agent)+'"}',  since)
         elif 'delete' in parse.parse_qs(o.query):
             num = parse.parse_qs(o.query)['delete'][0]
             text = delete_data_muti(num,search_time_limit, search_time_limit_num, zone)
