@@ -29,8 +29,11 @@ github的查询token（https://github.com/settings/tokens）。
 #### q （无需输入密码）
 
 请求连接: {vercle项目链接}/api?q={number1}&t={number2}
+
 示例: https://daodao-three.vercel.app/api?q=5
+
 number1(必填): 为0的时候取config值
+
 number2(选填): 查询的时间范围，单位天
 
 #### k （无需输入密码）
