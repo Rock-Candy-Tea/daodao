@@ -178,16 +178,6 @@ def judge_time_excit(list, time):
         "last_issue_number": last_issue_number
     }
 
-
-# 读取用户信息
-def user_info(token, user, source):
-    return {
-        "token": token,
-        "user": user,
-        "source": source
-    }
-
-
 # 读取用户日期信息 --issue
 def github_daodao_config(user_info, since):
     requests_path = 'https://api.github.com/repos/' + user_info['user'] + '/' + user_info['source'] + '/issues'
