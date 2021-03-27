@@ -235,6 +235,7 @@ def return_time(i):
 class handler(BaseHTTPRequestHandler):
     def do_GET(self):
     # 传入数据
+        print(os.path)
         config = load_yaml_config('config.yml')['setting']
 
     # 默认测试数据
@@ -289,3 +290,4 @@ class handler(BaseHTTPRequestHandler):
     # edit 修改字符串
     # combine 结合字符串
     #change_data_handle(2,data,'combine',search_time_limit, search_time_limit_num, zone,now_time, user_info, since)
+
