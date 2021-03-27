@@ -126,7 +126,8 @@ def change_data_handle(number, data, type, search_time_limit, search_time_limit_
     handle_id = list[number - 1]['id']
     handle_data = ''
     if type == "combine":
-        new_list=list[0:number].reverse()
+        new_list=list[0:number]
+        new_list.reverse()
         for i in new_list:
             handle_data += json.loads(i['content'])['content']
         delete_data_muti(number,user_info, search_time_limit, search_time_limit_num)
