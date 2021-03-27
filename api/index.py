@@ -301,7 +301,6 @@ class handler(BaseHTTPRequestHandler):
             
         if 'k' in parse.parse_qs(o.query):
             data = parse.parse_qs(o.query)['k'][0]
-            text='Please enter the correct password'
             if data == os.environ["DAODAO_PASSWORD"]:
                 if 'g' in parse.parse_qs(o.query):
                     data = parse.parse_qs(o.query)['g'][0]
@@ -325,6 +324,10 @@ class handler(BaseHTTPRequestHandler):
                     text = delete_data_muti(num,user_info, search_time_limit, search_time_limit_num)
                 else:
                     text = 'please check!'
+            else:
+                text='Please enter the correct password'
+        else:
+            text='Please enter the correct password'
         
         self.send_response(200)
         self.send_header('Access-Control-Allow-Origin', '*')
