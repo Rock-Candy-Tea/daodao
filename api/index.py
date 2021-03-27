@@ -7,7 +7,6 @@ from datetime import datetime
 from datetime import timedelta
 from http.server import BaseHTTPRequestHandler
 from urllib import parse
-import user_agents
 
 # 增加叨叨 -------------------start
 def creat_data(time, user_info, data, since):
@@ -237,7 +236,7 @@ class handler(BaseHTTPRequestHandler):
     def do_GET(self):
         
     # 传入数据
-        config = load_yaml_config(os.path.abspath('config.yml'))['setting']
+        config = load_yaml_config('config.yml')['setting']
     # 默认测试数据
         data = config['data']
     # 时区
@@ -262,10 +261,9 @@ class handler(BaseHTTPRequestHandler):
         print('当地时间为：', now_time)
 
         o = parse.urlparse(self.path)
-        user_agents = str(user_agents.parse(self.user-agent))
         if 'creat' in parse.parse_qs(o.query):
             data = parse.parse_qs(o.query)['creat'][0]
-            text = creat_data(now_time, user_info,'{"content":'+ data+',\n"user_agents":"'+user_agents+'"}', since)
+            text = creat_data(now_time, user_info,'{"content":'+ data+',\n"user_agents":"'+'"}', since)
         elif 'delete' in parse.parse_qs(o.query):
             num = parse.parse_qs(o.query)['delete'][0]
             text = delete_data_muti(num,search_time_limit, search_time_limit_num, zone)
