@@ -132,9 +132,11 @@ def change_data_handle(number, data, type, search_time_limit, search_time_limit_
             handle_data += json.loads(i['content'])['content']
         delete_data_muti(number,user_info, search_time_limit, search_time_limit_num)
         creat_data(now_time, user_info,'{"content":"'+ handle_data+'",\n"user_agents":"'+str(user_agent)+'"}' , since)
+        text ='Execution: combine the data'
     else:
         if type == "append":
             handle_data =json.loads(list[number-1]['content'])['content'] + data
+            text ='Execution: append the data'
         elif type == "edit":
             handle_data = data
         if len(list) < number:
@@ -288,15 +290,15 @@ class handler(BaseHTTPRequestHandler):
         if 'g' in parse.parse_qs(o.query):
             data = parse.parse_qs(o.query)['g'][0]
             text = change_data_handle(int(data),'','combine',search_time_limit, search_time_limit_num, zone,now_time, user_info, since,user_agent)
-        if 'a' in parse.parse_qs(o.query):
+        elif 'a' in parse.parse_qs(o.query):
             data = parse.parse_qs(o.query)['a'][0]
             data = data.split(',',1)
             text = change_data_handle(int(data[0]),data[1],'append',search_time_limit, search_time_limit_num, zone,now_time, user_info, since,user_agent)
-        if 'e' in parse.parse_qs(o.query):
+        elif 'e' in parse.parse_qs(o.query):
             data = parse.parse_qs(o.query)['e'][0]
             data = data.split(',',1)
             text = change_data_handle(int(data[0]),data[1],'edit',search_time_limit, search_time_limit_num, zone,now_time, user_info, since,user_agent)
-        if 'c' in parse.parse_qs(o.query):
+        elif 'c' in parse.parse_qs(o.query):
             data = parse.parse_qs(o.query)['c'][0]
             text = creat_data(now_time, user_info, '{"content":"'+ data+'",\n"user_agents":"'+str(user_agent)+'"}',  since)
         elif 'dn' in parse.parse_qs(o.query):
@@ -322,16 +324,3 @@ class handler(BaseHTTPRequestHandler):
         self.send_header('Content-type', 'text/plain')
         self.end_headers()
         self.wfile.write(text.encode())
-    # 增加一条叨叨
-    #creat_data(now_time, user_info, data,since)
-    # 查询m天前的n条叨叨
-    #search_result = search_daodao(search_time_limit, search_time_limit_num, zone)
-    # 删除指定id叨叨
-    # delete_data('808357648')
-    # 删除最新n条叨叨
-    #delete_data_muti(1,search_time_limit, search_time_limit_num, zone)
-    # 改动最新的第i条叨叨
-    # append 加字符串
-    # edit 修改字符串
-    # combine 结合字符串
-    #change_data_handle(2,data,'combine',search_time_limit, search_time_limit_num, zone,now_time, user_info, since)
