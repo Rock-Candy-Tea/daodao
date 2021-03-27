@@ -86,6 +86,22 @@ def delete_data_muti(number,user_info,  search_time_limit, search_time_limit_num
         text='Execution: there is no daodao!'
     return text
 
+# 单一封装
+def delete_data_single(number,user_info,  search_time_limit, search_time_limit_num):
+    number =int(number)
+    text=''
+    handle_number = 0
+    list = search_daodao(user_info, search_time_limit, search_time_limit_num)
+    if int(len(list)) > int(number):
+        handle_number = number
+    else:
+        text='please check!'
+    if int(handle_number) > 0:
+            delete_data(user_info,list[int(handle_number-1)]['id'])
+        text= 'Execution: deleted No.'+str(handle_number)+' daodao!'
+    else:
+        text='please check!'
+    return text
 
 # -------------------end
 
@@ -255,14 +271,20 @@ class handler(BaseHTTPRequestHandler):
         print('当地时间为：', now_time)
         user_agent = user_agents.parse(self.headers['User-Agent'])
         o = parse.urlparse(self.path)
+        if 'a' in parse.parse_qs(o.query):
+            data = parse.parse_qs(o.query)['a'][0].split(',',1)
+            text = change_data_handle(data[0],data[1],'combine',search_time_limit, search_time_limit_num, zone,now_time, user_info, since)
         if 'c' in parse.parse_qs(o.query):
             data = parse.parse_qs(o.query)['c'][0]
             text = creat_data(now_time, user_info, '{"content":"'+ data+'",\n"user_agents":"'+str(user_agent)+'"}',  since)
+        elif 'dn' in parse.parse_qs(o.query):
+             num = parse.parse_qs(o.query)['dn'][0]
+             text = delete_data_single(num,user_info, search_time_limit, search_time_limit_num)
         elif 'd' in parse.parse_qs(o.query):
             num = parse.parse_qs(o.query)['d'][0]
             text = delete_data_muti(num,user_info, search_time_limit, search_time_limit_num)
-        elif 's' in parse.parse_qs(o.query):
-            num = int(parse.parse_qs(o.query)['s'][0])
+        elif 'q' in parse.parse_qs(o.query):
+            num = int(parse.parse_qs(o.query)['q'][0])
             if num == 0:
                 num = search_time_limit_num 
             if 't' in parse.parse_qs(o.query):
