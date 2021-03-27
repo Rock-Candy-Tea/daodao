@@ -1,22 +1,22 @@
 # -*- coding: UTF-8 -*-
 import requests
 import yaml
-import os
 import time as TIME
 from datetime import datetime
 from datetime import timedelta
 from http.server import BaseHTTPRequestHandler
 from urllib import parse
+import user_agents
 
 # 增加叨叨 -------------------start
 def creat_data(time, user_info, data, since):
     text=''
     judegement = judge_time_excit(github_daodao_config(user_info, since), time)
     if (judegement['flag']):
-        text = 'Execution: Today has sent daodao, find issue, add comment!'
+        text = '执行:今日已发送叨叨，查找issue，添加评论！'
         creat_a_new_comments(user_info, judegement['last_issue_number'], data)
     else:
-        text = 'Execution: You did not send a message today, create an issue and add a comment!'
+        text = '执行:今日未发送叨叨，新建issue，添加评论！'
         creat_a_new_day_issue(user_info, time)
         judegement = judge_time_excit(github_daodao_config(user_info, since), time)
         creat_a_new_comments(user_info, judegement['last_issue_number'], data)
@@ -71,16 +71,16 @@ def delete_data_muti(number, search_time_limit, search_time_limit_num, zone):
     text=''
     handle_number = 0
     list = search_daodao(search_time_limit, search_time_limit_num, zone)
-    if len(list) > int(number):
+    if len(list) > number:
         handle_number = number
     else:
         handle_number = len(list)
     if handle_number > 0:
         for i in list[0:handle_number]:
             delete_data(i['id'])
-        text= 'Execution: Deleted latest'+handle_number+'daodao!'
+        text= '已删除最新'+handle_number+'条叨叨!'
     else:
-        text="Execution: You don't have a word to say!"
+        text='你居然一条叨叨都没有了！'
     return text
 
 
@@ -167,7 +167,7 @@ def judge_time_excit(list, time):
     flag = False
     last_issue_number = 0
     for i in list:
-        if int(i['number']) > int(last_issue_number):
+        if i['number'] > last_issue_number:
             last_issue_number = i['number']
         if i['title'] == str(time):
             flag = True
@@ -234,24 +234,24 @@ def return_time(i):
 
 class handler(BaseHTTPRequestHandler):
     def do_GET(self):
-        
     # 传入数据
-        config = load_yaml_config('config.yml')['setting']
+        config = load_yaml_config('../config.yml')['setting']
+
     # 默认测试数据
-        data = config['data']
+        data = ''
     # 时区
-        zone = config['zone']
+        zone = 8
     # 查询天数
-        search_time_limit = config['search_time_limit']
+        search_time_limit = 3
     # 查询条数
-        search_time_limit_num = config['search_time_limit_num']
+        search_time_limit_num = 5
     # 生成标准时间
         now = datetime.utcnow()
     # 读取用户信息
         user_info = {
-        "token": os.environ["DAODAO_TOKEN"],
-        "user": config['user'],
-        "source": config['repo']
+        "token": '4c6377b83bd2654d85ba1d7c83cca2ba6f6ce1d5',
+        "user": 'zfour',
+        "source": 'daodao'
         }
     # 生成当前时区时间标题
         now_time = time_zone_reset(now, zone, '%Y-%m-%d')
@@ -260,11 +260,12 @@ class handler(BaseHTTPRequestHandler):
 
         print('当地时间为：', now_time)
 
+        user_agent = user_agents.parse(self['user_agents'])
         o = parse.urlparse(self.path)
-        if 'creat' in parse.parse_qs(o.query):
-            data = parse.parse_qs(o.query)['creat'][0]
-            text = creat_data(now_time, user_info,'{"content":'+ data+',\n"user_agents":"'+'"}', since)
-        elif 'delete' in parse.parse_qs(o.query):
+        if parse.parse_qs(o.query)['creat'][0]:
+            data = parse.parse_qs(o.query)['data'][0]
+            text = creat_data(now_time, user_info,'{"content":'+ data+',\n"user_agents":"'+user_agent+'"}', since)
+        if parse.parse_qs(o.query)['delete'][0]:
             num = parse.parse_qs(o.query)['delete'][0]
             text = delete_data_muti(num,search_time_limit, search_time_limit_num, zone)
         else:
@@ -272,7 +273,6 @@ class handler(BaseHTTPRequestHandler):
 
         self.send_response(200)
         self.send_header('Access-Control-Allow-Origin', '*')
-        self.send_header('charset','UTF-8')
         self.send_header('Content-type', 'text/plain')
         self.end_headers()
         self.wfile.write(text.encode())
