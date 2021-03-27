@@ -68,10 +68,10 @@ def delete_data(data_id):
 
 
 # 循环列表封装
-def delete_data_muti(number, search_time_limit, search_time_limit_num, zone):
+def delete_data_muti(number,user_info,  search_time_limit, search_time_limit_num, zone):
     text=''
     handle_number = 0
-    list = search_daodao(search_time_limit, search_time_limit_num, zone)
+    list = search_daodao(user_info, search_time_limit, search_time_limit_num, zone)
     if len(list) > int(number):
         handle_number = number
     else:
@@ -108,7 +108,7 @@ def change_data(data_id, data):
 # combine 结合字符串
 def change_data_handle(number, data, type, search_time_limit, search_time_limit_num, zone, now_time, user_info, since):
     text = ''
-    list = search_daodao(search_time_limit, search_time_limit_num, zone)
+    list = search_daodao(user_info, search_time_limit, search_time_limit_num, zone)
     handle_id = list[number - 1]['id']
     handle_data = ''
     if type == "combine":
@@ -133,7 +133,7 @@ def change_data_handle(number, data, type, search_time_limit, search_time_limit_
 # -------------------end
 
 # 查询叨叨 -------------------start
-def search_daodao(search_time_limit, search_time_limit_num, zone):
+def search_daodao(user_info, search_time_limit, search_time_limit_num, zone):
     search_result = github_daodao_config_comments(user_info, search_time(search_time_limit))
     search_result.sort(key=return_time, reverse=True)
     result_list = []
@@ -256,7 +256,7 @@ class handler(BaseHTTPRequestHandler):
             text = creat_data(now_time, user_info, '{"content":'+ data+',\n"user_agents":"'+str(user_agent)+'"}',  since)
         elif 'delete' in parse.parse_qs(o.query):
             num = parse.parse_qs(o.query)['delete'][0]
-            text = delete_data_muti(num,search_time_limit, search_time_limit_num, zone)
+            text = delete_data_muti(num,user_info, search_time_limit, search_time_limit_num, zone)
         else:
             text = 'please check!'
 
