@@ -90,17 +90,12 @@ def delete_data_muti(number,user_info,  search_time_limit, search_time_limit_num
 def delete_data_single(number,user_info,  search_time_limit, search_time_limit_num):
     number =int(number)
     text=''
-    handle_number = 0
     list = search_daodao(user_info, search_time_limit, search_time_limit_num)
-    if int(len(list)) > int(number):
-        handle_number = number
-    else:
-        text='please check!'
-    if int(handle_number) > 0:
-        delete_data(user_info,list[int(handle_number-1)]['id'])
+    if int(len(list)) >= int(number) and number > 0:
+        delete_data(user_info,list[number-1]['id'])
         text= 'Execution: deleted No.'+str(handle_number)+' daodao!'
     else:
-        text='please check!'
+        text='please check!out of range!'
     return text
 
 # -------------------end
