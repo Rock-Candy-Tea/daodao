@@ -324,7 +324,7 @@ class handler(BaseHTTPRequestHandler):
                     text = delete_data_muti(num,user_info, search_time_limit, search_time_limit_num)
                 else:
                     text = 'please check!'
-            else
+            else:
                 text='Please enter the correct password'
         
         self.send_response(200)
