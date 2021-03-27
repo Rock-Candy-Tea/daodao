@@ -69,15 +69,16 @@ def delete_data(data_id):
 
 # 循环列表封装
 def delete_data_muti(number,user_info,  search_time_limit, search_time_limit_num, zone):
+    number =int(number)
     text=''
     handle_number = 0
     list = search_daodao(user_info, search_time_limit, search_time_limit_num, zone)
     if int(len(list)) > int(number):
         handle_number = number
     else:
-        handle_number = len(list)
+        handle_number =  int(len(list))
     if int(handle_number) > 0:
-        for i in list[0:handle_number]:
+        for i in list[0:int(handle_number)]:
             delete_data(i['id'])
         text= 'Execution: deleted latest '+str(handle_number)+' daodao!'
     else:
@@ -107,6 +108,7 @@ def change_data(data_id, data):
 # edit 修改字符串
 # combine 结合字符串
 def change_data_handle(number, data, type, search_time_limit, search_time_limit_num, zone, now_time, user_info, since):
+    number =int(number)
     text = ''
     list = search_daodao(user_info, search_time_limit, search_time_limit_num, zone)
     handle_id = list[number - 1]['id']
