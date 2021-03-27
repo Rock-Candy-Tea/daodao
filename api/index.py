@@ -79,7 +79,7 @@ def delete_data_muti(number, search_time_limit, search_time_limit_num, zone):
     if handle_number > 0:
         for i in list[0:handle_number]:
             delete_data(i['id'])
-        text= 'Execution: deleted latest'+handle_number+'daodao!'
+        text= 'Execution: deleted latest '+str(handle_number)+' daodao!'
     else:
         text='Execution: there is no daodao!'
     return text
