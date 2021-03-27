@@ -286,20 +286,8 @@ class handler(BaseHTTPRequestHandler):
         
         print('当地时间为：', now_time)
         user_agent = user_agents.parse(self.headers['User-Agent'])
-        o = parse.urlparse(self.path)
-        if 'q' in parse.parse_qs(o.query):
-            num = int(parse.parse_qs(o.query)['q'][0])
-            if num == 0:
-                num = search_time_limit_num 
-            if 't' in parse.parse_qs(o.query):
-                limit = int(parse.parse_qs(o.query)['t'][0])
-            else:
-                limit = search_time_limit
-            text = json.dumps(search_daodao_lite(user_info, limit, num))
-        else:
-            text = 'please check!'
-            
-        if 'k' in parse.parse_qs(o.query):
+        o = parse.urlparse(self.path)            
+        if 'k' in parse.parse_qs(o.query) :
             data = parse.parse_qs(o.query)['k'][0]
             if data == os.environ["DAODAO_PASSWORD"]:
                 if 'g' in parse.parse_qs(o.query):
@@ -326,6 +314,15 @@ class handler(BaseHTTPRequestHandler):
                     text = 'please check!'
             else:
                 text='Please enter the correct password'
+        elif: 'q' in parse.parse_qs(o.query):
+            num = int(parse.parse_qs(o.query)['q'][0])
+            if num == 0:
+                num = search_time_limit_num 
+            if 't' in parse.parse_qs(o.query):
+                limit = int(parse.parse_qs(o.query)['t'][0])
+            else:
+                limit = search_time_limit
+            text = json.dumps(search_daodao_lite(user_info, limit, num))
         else:
             text='Please enter the correct password'
         
