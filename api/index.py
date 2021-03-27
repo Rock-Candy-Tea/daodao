@@ -55,7 +55,7 @@ def creat_a_new_day_issue(user_info, time):
 
 # 删除叨叨 -------------------start
 # 基础封装
-def delete_data(data_id):
+def delete_data(user_info,data_id):
     requests_path = 'https://api.github.com/repos/' + user_info['user'] + '/' + user_info[
         'source'] + '/issues/comments/' + str(data_id)
     token = 'token ' + user_info['token']
@@ -79,7 +79,7 @@ def delete_data_muti(number,user_info,  search_time_limit, search_time_limit_num
         handle_number =  int(len(list))
     if int(handle_number) > 0:
         for i in list[0:int(handle_number)]:
-            delete_data(i['id'])
+            delete_data(user_info,i['id'])
         text= 'Execution: deleted latest '+str(handle_number)+' daodao!'
     else:
         text='Execution: there is no daodao!'
@@ -90,7 +90,7 @@ def delete_data_muti(number,user_info,  search_time_limit, search_time_limit_num
 
 # 改动叨叨 -------------------start
 # 基础封装
-def change_data(data_id, data):
+def change_data(user_info,data_id, data):
     requests_path = 'https://api.github.com/repos/' + user_info['user'] + '/' + user_info[
         'source'] + '/issues/comments/' + str(data_id)
     token = 'token ' + user_info['token']
@@ -116,7 +116,7 @@ def change_data_handle(number, data, type, search_time_limit, search_time_limit_
     if type == "combine":
         for i in list[0:number]:
             handle_data += list[number - 1]['content']
-        delete_data_muti(number, search_time_limit, search_time_limit_num, zone)
+        delete_data_muti(number,user_info, search_time_limit, search_time_limit_num, zone)
         creat_data(now_time, user_info, handle_data, since)
     else:
         if type == "append":
@@ -126,7 +126,7 @@ def change_data_handle(number, data, type, search_time_limit, search_time_limit_
         if len(list) < number:
             text ='Incorrect input, please reenter!'
         else:
-            change_data(handle_id, handle_data)
+            change_data(user_info,handle_id, handle_data)
             text ='已更新第%s条叨叨为%s' % (str(number), handle_data)
     return text
 
