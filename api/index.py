@@ -283,31 +283,11 @@ class handler(BaseHTTPRequestHandler):
         now_time = time_zone_reset(now, zone, '%Y-%m-%d')
     # 生成查询范围
         since = search_time(search_time_limit)
-
+        
         print('当地时间为：', now_time)
         user_agent = user_agents.parse(self.headers['User-Agent'])
         o = parse.urlparse(self.path)
-        if 'g' in parse.parse_qs(o.query):
-            data = parse.parse_qs(o.query)['g'][0]
-            text = change_data_handle(int(data),'','combine',search_time_limit, search_time_limit_num, zone,now_time, user_info, since,user_agent)
-        elif 'a' in parse.parse_qs(o.query):
-            data = parse.parse_qs(o.query)['a'][0]
-            data = data.split(',',1)
-            text = change_data_handle(int(data[0]),data[1],'append',search_time_limit, search_time_limit_num, zone,now_time, user_info, since,user_agent)
-        elif 'e' in parse.parse_qs(o.query):
-            data = parse.parse_qs(o.query)['e'][0]
-            data = data.split(',',1)
-            text = change_data_handle(int(data[0]),data[1],'edit',search_time_limit, search_time_limit_num, zone,now_time, user_info, since,user_agent)
-        elif 'c' in parse.parse_qs(o.query):
-            data = parse.parse_qs(o.query)['c'][0]
-            text = creat_data(now_time, user_info, '{"content":"'+ data+'",\n"user_agents":"'+str(user_agent)+'"}',  since)
-        elif 'dn' in parse.parse_qs(o.query):
-             num = parse.parse_qs(o.query)['dn'][0]
-             text = delete_data_single(num,user_info, search_time_limit, search_time_limit_num)
-        elif 'd' in parse.parse_qs(o.query):
-            num = parse.parse_qs(o.query)['d'][0]
-            text = delete_data_muti(num,user_info, search_time_limit, search_time_limit_num)
-        elif 'q' in parse.parse_qs(o.query):
+        if 'q' in parse.parse_qs(o.query):
             num = int(parse.parse_qs(o.query)['q'][0])
             if num == 0:
                 num = search_time_limit_num 
@@ -318,7 +298,35 @@ class handler(BaseHTTPRequestHandler):
             text = json.dumps(search_daodao_lite(user_info, limit, num))
         else:
             text = 'please check!'
-
+            
+        if 'k' in parse.parse_qs(o.query):
+            data = parse.parse_qs(o.query)['k'][0]
+            if data =  os.environ["DAODAO_PASSWORD"]:
+                if 'g' in parse.parse_qs(o.query):
+                    data = parse.parse_qs(o.query)['g'][0]
+                    text = change_data_handle(int(data),'','combine',search_time_limit, search_time_limit_num, zone,now_time, user_info, since,user_agent)
+                elif 'a' in parse.parse_qs(o.query):
+                    data = parse.parse_qs(o.query)['a'][0]
+                    data = data.split(',',1)
+                    text = change_data_handle(int(data[0]),data[1],'append',search_time_limit, search_time_limit_num, zone,now_time, user_info, since,user_agent)
+                elif 'e' in parse.parse_qs(o.query):
+                    data = parse.parse_qs(o.query)['e'][0]
+                    data = data.split(',',1)
+                    text = change_data_handle(int(data[0]),data[1],'edit',search_time_limit, search_time_limit_num, zone,now_time, user_info, since,user_agent)
+                elif 'c' in parse.parse_qs(o.query):
+                    data = parse.parse_qs(o.query)['c'][0]
+                    text = creat_data(now_time, user_info, '{"content":"'+ data+'",\n"user_agents":"'+str(user_agent)+'"}',  since)
+                elif 'dn' in parse.parse_qs(o.query):
+                    num = parse.parse_qs(o.query)['dn'][0]
+                    text = delete_data_single(num,user_info, search_time_limit, search_time_limit_num)
+                elif 'd' in parse.parse_qs(o.query):
+                    num = parse.parse_qs(o.query)['d'][0]
+                    text = delete_data_muti(num,user_info, search_time_limit, search_time_limit_num)
+                else:
+                    text = 'please check!'
+            else
+                text='Please enter the correct password'
+        
         self.send_response(200)
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Content-type', 'text/plain')
