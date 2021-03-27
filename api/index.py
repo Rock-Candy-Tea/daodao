@@ -314,7 +314,7 @@ class handler(BaseHTTPRequestHandler):
                     text = 'please check!'
             else:
                 text='Please enter the correct password'
-        elif: 'q' in parse.parse_qs(o.query):
+        elif 'q' in parse.parse_qs(o.query):
             num = int(parse.parse_qs(o.query)['q'][0])
             if num == 0:
                 num = search_time_limit_num 
