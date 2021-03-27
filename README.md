@@ -29,9 +29,44 @@ github的查询token（https://github.com/settings/tokens）。
 #### q （无需输入密码）
 
 请求连接: {vercle项目链接}/api?q={number1}&t={number2}
-示例: 
+示例: https://daodao-three.vercel.app/api?q=5
 number1(必填): 为0的时候取config值
 number2(选填): 查询的时间范围，单位天
+
+#### k （无需输入密码）
+密码参数，以下查询均需
+
+#### c 增加一条叨叨（需输入密码）
+请求连接: {vercle项目链接}/api?c={content}&t={key}
+示例: https://daodao-three.vercel.app/api?c=这是一条测试&k=******
+content: 可以是文字或者html代码
+
+#### d 删除一条/n条最新的叨叨（需输入密码）
+请求连接: {vercle项目链接}/api?d={number}&t={key}
+示例: https://daodao-three.vercel.app/api?d=1&k=******
+number: 正整数
+
+#### dn 删除第一条/n条最新的叨叨（需输入密码）
+请求连接: {vercle项目链接}/api?dn={number}&t={key}
+示例: https://daodao-three.vercel.app/api?dn=2&k=******
+number: 正整数
+
+#### a 给第n条叨叨增加内容（需输入密码）
+请求连接: {vercle项目链接}/api?a={number,content}&t={key}
+示例: https://daodao-three.vercel.app/api?a=2,我给第二条增加内容&k=******
+number: 正整数
+content: 可以是文字或者html代码
+
+#### e 编辑第n条叨叨替换内容（需输入密码）
+请求连接: {vercle项目链接}/api?e={number,content}&t={key}
+示例: https://daodao-three.vercel.app/api?e=2,我给第二条替换内容&k=******
+number: 正整数
+content: 可以是文字或者html代码
+
+#### e 合并最新的n条叨叨内容（需输入密码）
+请求连接: {vercle项目链接}/api?g={number}&t={key}
+示例: https://daodao-three.vercel.app/api?g=2&k=******
+number: 正整数
 
 
 
