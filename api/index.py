@@ -276,7 +276,7 @@ class handler(BaseHTTPRequestHandler):
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Content-type', 'text/plain')
         self.end_headers()
-        self.wfile.write(text.encode('utf-8'))
+        self.wfile.write(text.encode())
     # 增加一条叨叨
     #creat_data(now_time, user_info, data,since)
     # 查询m天前的n条叨叨
