@@ -285,8 +285,7 @@ class handler(BaseHTTPRequestHandler):
         o = parse.urlparse(self.path)
         if 'g' in parse.parse_qs(o.query):
             data = parse.parse_qs(o.query)['g'][0]
-            data = data.split(',',1)
-            text = change_data_handle(int(data[0]),data[1],'combine',search_time_limit, search_time_limit_num, zone,now_time, user_info, since,user_agent)
+            text = change_data_handle(int(data),'','combine',search_time_limit, search_time_limit_num, zone,now_time, user_info, since,user_agent)
         if 'a' in parse.parse_qs(o.query):
             data = parse.parse_qs(o.query)['a'][0]
             data = data.split(',',1)
