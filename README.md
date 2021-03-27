@@ -1,4 +1,4 @@
-# 叨叨
+# 叨叨点啥
 哔哔点啥的白嫖版本。基于github的issue及vercel api搭建。
 ___
 
@@ -23,6 +23,19 @@ setting:
 <b>DAODAO_TOKEN</b> 
 
 github的查询token（https://github.com/settings/tokens）。
+
+### 查询参数及示例:
+
+#### q （无需输入密码）
+
+请求连接: {vercle项目链接}/api?q={number1}&t={number2}
+示例: 
+number1(必填): 为0的时候取config值
+number2(选填): 查询的时间范围，单位天
+
+
+
+
 
 
 
