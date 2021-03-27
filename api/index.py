@@ -126,7 +126,8 @@ def change_data_handle(number, data, type, search_time_limit, search_time_limit_
     handle_id = list[number - 1]['id']
     handle_data = ''
     if type == "combine":
-        for i in list[0:number]:
+        new_list=list[0:number].reverse()
+        for i in new_list:
             handle_data += json.loads(i['content'])['content']
         delete_data_muti(number,user_info, search_time_limit, search_time_limit_num)
         creat_data(now_time, user_info,'{"content":"'+ handle_data+'",\n"user_agents":"'+str(user_agent)+'"}' , since)
@@ -139,7 +140,7 @@ def change_data_handle(number, data, type, search_time_limit, search_time_limit_
             text ='Incorrect input, please reenter!'
         else:
             change_data(user_info,handle_id, '{"content":"'+ handle_data+'",\n"user_agents":"'+str(user_agent)+'"}')
-            text ='已更新第%s条叨叨为%s' % (str(number), '{"content":"'+ handle_data+'",\n"user_agents":"'+str(user_agent)+'"}')
+            text ='Execution: update the data'
     return text
 
 
