@@ -263,7 +263,7 @@ class handler(BaseHTTPRequestHandler):
         if 'creat' in parse.parse_qs(o.query):
             data = parse.parse_qs(o.query)['creat'][0]
             text = creat_data(now_time, user_info, data, since)
-        if 'delete' in parse.parse_qs(o.query):
+        elseif 'delete' in parse.parse_qs(o.query):
             num = parse.parse_qs(o.query)['delete'][0]
             text = delete_data_muti(num,search_time_limit, search_time_limit_num, zone)
         else:
