@@ -23,9 +23,7 @@ function getLocalTime(nS) {
                         'from': e.from
                     }
                 })
-                // console.log(fundsArray)
-                saveToLocal.set('zhheo-bb', JSON.stringify(bbArray), 5 / (60 * 24))
-                const data = saveToLocal.get('zhheo-bb');
+                const data = JSON.stringify(bbArray);
                 generateBBHtml(JSON.parse(data))
             }
         };
