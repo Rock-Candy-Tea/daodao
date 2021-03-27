@@ -268,7 +268,7 @@ class handler(BaseHTTPRequestHandler):
             num = parse.parse_qs(o.query)['delete'][0]
             text = delete_data_muti(num,search_time_limit, search_time_limit_num, zone)
         else:
-            text = 'please check!
+            text = 'please check!'
 
         self.send_response(200)
         self.send_header('Access-Control-Allow-Origin', '*')
