@@ -3,6 +3,5 @@ setting:
   zone: 8
   search_time_limit: 3
   search_time_limit_num: 5
-  token: '4c6377b83bd2654d85ba1d7c83cca2ba6f6ce1d5'
   user: 'zfour'
   repo: 'daodao'
