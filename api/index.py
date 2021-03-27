@@ -97,7 +97,7 @@ def delete_data_single(number,user_info,  search_time_limit, search_time_limit_n
     else:
         text='please check!'
     if int(handle_number) > 0:
-            delete_data(user_info,list[int(handle_number-1)]['id'])
+        delete_data(user_info,list[int(handle_number-1)]['id'])
         text= 'Execution: deleted No.'+str(handle_number)+' daodao!'
     else:
         text='please check!'
