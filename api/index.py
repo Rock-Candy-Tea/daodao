@@ -234,7 +234,7 @@ def return_time(i):
 
 class handler(BaseHTTPRequestHandler):
     def do_GET(self):
-        enc = "UTF-8"
+        
     # 传入数据
         config = load_yaml_config('config.yml')['setting']
     # 默认测试数据
@@ -272,6 +272,7 @@ class handler(BaseHTTPRequestHandler):
 
         self.send_response(200)
         self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('charset','UTF-8')
         self.send_header('Content-type', 'text/plain')
         self.end_headers()
         self.wfile.write(text.encode())
