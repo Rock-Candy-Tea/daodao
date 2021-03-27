@@ -151,8 +151,8 @@ def change_data_handle(number, data, type, search_time_limit, search_time_limit_
 
 # -------------------end
 
-# 查询叨叨 -------------------start
-def search_daodao(user_info, search_time_limit, search_time_limit_num):
+# 查询叨叨（应用） -------------------start
+def search_daodao_lite(user_info, search_time_limit, search_time_limit_num):
     search_result = github_daodao_config_comments(user_info, search_time(search_time_limit))
     search_result.sort(key=return_time, reverse=True)
     result_list = []
@@ -171,6 +171,23 @@ def search_daodao(user_info, search_time_limit, search_time_limit_num):
     print(result_list)
     return result_list
 
+def search_daodao(user_info, search_time_limit, search_time_limit_num):
+    search_result = github_daodao_config_comments(user_info, search_time(search_time_limit))
+    search_result.sort(key=return_time, reverse=True)
+    result_list = []
+    for i in search_result[0:search_time_limit_num]:
+        this_time = datetime.strptime(i['updated_at'], '%Y-%m-%dT%H:%M:%SZ')
+        item_dict = {
+            # 北京时间
+            # 'time': time_zone_reset(this_time, zone, '%Y-%m-%d %H:%M:%S'),
+            # 时间戳
+            'date': {"$date": int(TIME.mktime(this_time.timetuple()))},
+            'content': str(i['body']),
+            'id': str(i['id'])
+        }
+        result_list.append(item_dict)
+    print(result_list)
+    return result_list
 
 # -------------------end
 
@@ -291,7 +308,7 @@ class handler(BaseHTTPRequestHandler):
                 limit = int(parse.parse_qs(o.query)['t'][0])
             else:
                 limit = search_time_limit
-            text = json.dumps(search_daodao(user_info, limit, num))
+            text = json.dumps(search_daodao_lite(user_info, limit, num))
         else:
             text = 'please check!'
 
