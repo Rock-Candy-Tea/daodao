@@ -7,6 +7,7 @@ from datetime import datetime
 from datetime import timedelta
 from http.server import BaseHTTPRequestHandler
 from urllib import parse
+import user_agents
 
 # 增加叨叨 -------------------start
 def creat_data(time, user_info, data, since):
@@ -258,16 +259,16 @@ class handler(BaseHTTPRequestHandler):
         since = search_time(search_time_limit)
 
         print('当地时间为：', now_time)
-
+        user_agent = user_agents.parse(self['user_agents'])
         o = parse.urlparse(self.path)
-        if parse.parse_qs(o.query)['creat'][0]:
+        if 'creat' in parse.parse_qs(o.query):
             data = parse.parse_qs(o.query)['creat'][0]
-            text = creat_data(now_time, user_info, data, since)
-        if parse.parse_qs(o.query)['delete'][0]:
+            text = creat_data(now_time, user_info, '{"content":'+ data+',\n"user_agents":"'+user_agents+'"}',  since)
+        elseif 'delete' in parse.parse_qs(o.query):
             num = parse.parse_qs(o.query)['delete'][0]
             text = delete_data_muti(num,search_time_limit, search_time_limit_num, zone)
         else:
-            text = 'please check!'
+            text = 'please check!
 
         self.send_response(200)
         self.send_header('Access-Control-Allow-Origin', '*')
