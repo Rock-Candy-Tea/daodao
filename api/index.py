@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 import requests
 import yaml
+import os
 import time as TIME
 from datetime import datetime
 from datetime import timedelta
@@ -247,7 +248,7 @@ class handler(BaseHTTPRequestHandler):
         now = datetime.utcnow()
     # 读取用户信息
         user_info = {
-        "token": config['token'],
+        "token": os.environ["DAODAO_TOKEN"],
         "user": config['user'],
         "source": config['repo']
         }
