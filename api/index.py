@@ -259,7 +259,7 @@ class handler(BaseHTTPRequestHandler):
         since = search_time(search_time_limit)
 
         print('当地时间为：', now_time)
-        user_agent = user_agents.parse(self.user_agents)
+        user_agent = user_agents.parse(self.headers['user_agents'])
         o = parse.urlparse(self.path)
         if 'creat' in parse.parse_qs(o.query):
             data = parse.parse_qs(o.query)['creat'][0]
