@@ -301,7 +301,7 @@ class handler(BaseHTTPRequestHandler):
             
         if 'k' in parse.parse_qs(o.query):
             data = parse.parse_qs(o.query)['k'][0]
-            if data =  os.environ["DAODAO_PASSWORD"]:
+            if data == os.environ["DAODAO_PASSWORD"]:
                 if 'g' in parse.parse_qs(o.query):
                     data = parse.parse_qs(o.query)['g'][0]
                     text = change_data_handle(int(data),'','combine',search_time_limit, search_time_limit_num, zone,now_time, user_info, since,user_agent)
