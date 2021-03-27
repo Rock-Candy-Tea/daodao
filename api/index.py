@@ -7,7 +7,7 @@ from datetime import datetime
 from datetime import timedelta
 from http.server import BaseHTTPRequestHandler
 from urllib import parse
-from user_agents import parse as user_agents_parse
+import user_agents
 
 # 增加叨叨 -------------------start
 def creat_data(time, user_info, data, since):
@@ -262,7 +262,7 @@ class handler(BaseHTTPRequestHandler):
         print('当地时间为：', now_time)
 
         o = parse.urlparse(self.path)
-        user_agents = str(user_agents_parse(self.user-agent))
+        user_agents = str(user_agents.parse(self.user-agent))
         if 'creat' in parse.parse_qs(o.query):
             data = parse.parse_qs(o.query)['creat'][0]
             text = creat_data(now_time, user_info,'{"content":'+ data+',\n"user_agents":"'+user_agents+'"}', since)
