@@ -93,7 +93,7 @@ def delete_data_single(number,user_info,  search_time_limit, search_time_limit_n
     list = search_daodao(user_info, search_time_limit, search_time_limit_num)
     if int(len(list)) >= int(number) and number > 0:
         delete_data(user_info,list[number-1]['id'])
-        text= 'Execution: deleted No.'+str(handle_number)+' daodao!'
+        text= 'Execution: deleted No.'+str(number)+' daodao!'
     else:
         text='please check!out of range!'
     return text
