@@ -235,7 +235,7 @@ def return_time(i):
 class handler(BaseHTTPRequestHandler):
     def do_GET(self):
     # 传入数据
-        config = load_yaml_config(os.path.dirname(os.getcwd())+'\\config.yml')['setting']
+        config = load_yaml_config('./config.yml')['setting']
     # 默认测试数据
         data = config['data']
     # 时区
