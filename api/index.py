@@ -68,7 +68,7 @@ def delete_data(user_info,data_id):
 
 
 # 循环列表封装
-def delete_data_muti(number,user_info,  search_time_limit, search_time_limit_num, zone):
+def delete_data_muti(number,user_info,  search_time_limit, search_time_limit_num):
     number =int(number)
     text=''
     handle_number = 0
@@ -116,7 +116,7 @@ def change_data_handle(number, data, type, search_time_limit, search_time_limit_
     if type == "combine":
         for i in list[0:number]:
             handle_data += list[number - 1]['content']
-        delete_data_muti(number,user_info, search_time_limit, search_time_limit_num, zone)
+        delete_data_muti(number,user_info, search_time_limit, search_time_limit_num)
         creat_data(now_time, user_info, handle_data, since)
     else:
         if type == "append":
@@ -258,7 +258,7 @@ class handler(BaseHTTPRequestHandler):
             text = creat_data(now_time, user_info, '{"content":"'+ data+'",\n"user_agents":"'+str(user_agent)+'"}',  since)
         elif 'd' in parse.parse_qs(o.query):
             num = parse.parse_qs(o.query)['d'][0]
-            text = delete_data_muti(num,user_info, search_time_limit, search_time_limit_num, zone)
+            text = delete_data_muti(num,user_info, search_time_limit, search_time_limit_num)
         elif 's' in parse.parse_qs(o.query):
             num = int(parse.parse_qs(o.query)['s'][0])
             if num == 0:
@@ -267,7 +267,7 @@ class handler(BaseHTTPRequestHandler):
                 limit = int(parse.parse_qs(o.query)['t'][0])
             else:
                 limit = search_time_limit
-            search_result = search_daodao(limit, num, zone)
+                text = search_daodao(limit, num)
         else:
             text = 'please check!'
 
