@@ -267,7 +267,7 @@ class handler(BaseHTTPRequestHandler):
                 limit = int(parse.parse_qs(o.query)['t'][0])
             else:
                 limit = search_time_limit
-                text = search_daodao(limit, num)
+            text = search_daodao(limit, num)
         else:
             text = 'please check!'
 
