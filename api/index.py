@@ -119,7 +119,7 @@ def change_data(user_info,data_id, data):
 # append 加字符串
 # edit 修改字符串
 # combine 结合字符串
-def change_data_handle(number, data, type, search_time_limit, search_time_limit_num, zone, now_time, user_info, since):
+def change_data_handle(number, data, type, search_time_limit, search_time_limit_num, zone, now_time, user_info, since,user_agent):
     number =int(number)
     text = ''
     list = search_daodao(user_info, search_time_limit, search_time_limit_num)
@@ -129,7 +129,7 @@ def change_data_handle(number, data, type, search_time_limit, search_time_limit_
         for i in list[0:number]:
             handle_data += json.loads(i['content'])['content']
         delete_data_muti(number,user_info, search_time_limit, search_time_limit_num)
-        creat_data(now_time, user_info, handle_data, since)
+        creat_data(now_time, user_info,'{"content":"'+ handle_data+'",\n"user_agents":"'+str(user_agent)+'"}' , since)
     else:
         if type == "append":
             handle_data =json.loads(list[number-1]['content'])['content'] + data
@@ -138,8 +138,8 @@ def change_data_handle(number, data, type, search_time_limit, search_time_limit_
         if len(list) < number:
             text ='Incorrect input, please reenter!'
         else:
-            change_data(user_info,handle_id, handle_data)
-            text ='已更新第%s条叨叨为%s' % (str(number), handle_data)
+            change_data(user_info,handle_id, '{"content":"'+ handle_data+'",\n"user_agents":"'+str(user_agent)+'"}')
+            text ='已更新第%s条叨叨为%s' % (str(number), '{"content":"'+ handle_data+'",\n"user_agents":"'+str(user_agent)+'"}')
     return text
 
 
@@ -286,15 +286,15 @@ class handler(BaseHTTPRequestHandler):
         if 'g' in parse.parse_qs(o.query):
             data = parse.parse_qs(o.query)['g'][0]
             data = data.split(',',1)
-            text = change_data_handle(int(data[0]),data[1],'combine',search_time_limit, search_time_limit_num, zone,now_time, user_info, since)
+            text = change_data_handle(int(data[0]),data[1],'combine',search_time_limit, search_time_limit_num, zone,now_time, user_info, since,user_agent)
         if 'a' in parse.parse_qs(o.query):
             data = parse.parse_qs(o.query)['a'][0]
             data = data.split(',',1)
-            text = change_data_handle(int(data[0]),data[1],'append',search_time_limit, search_time_limit_num, zone,now_time, user_info, since)
+            text = change_data_handle(int(data[0]),data[1],'append',search_time_limit, search_time_limit_num, zone,now_time, user_info, since,user_agent)
         if 'e' in parse.parse_qs(o.query):
             data = parse.parse_qs(o.query)['e'][0]
             data = data.split(',',1)
-            text = change_data_handle(int(data[0]),data[1],'edit',search_time_limit, search_time_limit_num, zone,now_time, user_info, since)
+            text = change_data_handle(int(data[0]),data[1],'edit',search_time_limit, search_time_limit_num, zone,now_time, user_info, since,user_agent)
         if 'c' in parse.parse_qs(o.query):
             data = parse.parse_qs(o.query)['c'][0]
             text = creat_data(now_time, user_info, '{"content":"'+ data+'",\n"user_agents":"'+str(user_agent)+'"}',  since)
