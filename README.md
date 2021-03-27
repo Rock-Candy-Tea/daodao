@@ -76,7 +76,7 @@ number: 正整数
 content: 可以是文字或者html代码
 
 
-#### e 合并最新的n条叨叨内容（需输入密码）
+#### g 合并最新的n条叨叨内容（需输入密码）
 请求连接: {vercle项目链接}/api?g={number}&t={key}
 
 示例: https://daodao-three.vercel.app/api?g=2&k=******
