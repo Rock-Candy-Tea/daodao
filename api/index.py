@@ -327,7 +327,10 @@ class handler(BaseHTTPRequestHandler):
             text='Please enter the correct password'
         
         self.send_response(200)
-        self.send_header('Access-Control-Allow-Origin', '*')
-        self.send_header('Content-type', 'text/plain')
+               """ Sets headers required for CORS """
+        self.send_header('Content-type', 'application/json')
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "*")
+        self.send_header("Access-Control-Allow-Headers", "Authorization, Content-Type")
         self.end_headers()
         self.wfile.write(text.encode())
