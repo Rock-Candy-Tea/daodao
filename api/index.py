@@ -260,10 +260,10 @@ class handler(BaseHTTPRequestHandler):
         print('当地时间为：', now_time)
 
         o = parse.urlparse(self.path)
-        if parse.parse_qs(o.query)['creat'][0]:
+        if parse.parse_qs(o.query)['creat']:
             data = parse.parse_qs(o.query)['creat'][0]
             text = creat_data(now_time, user_info, data, since)
-        if parse.parse_qs(o.query)['delete'][0]:
+        if parse.parse_qs(o.query)['delete']:
             num = parse.parse_qs(o.query)['delete'][0]
             text = delete_data_muti(num,search_time_limit, search_time_limit_num, zone)
         else:
