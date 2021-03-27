@@ -1,5 +1,5 @@
 setting:
-  data: 'test'
+  data: 'test '
   zone: 8
   search_time_limit: 3
   search_time_limit_num: 5
