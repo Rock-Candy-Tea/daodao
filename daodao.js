@@ -50,7 +50,7 @@ function getLocalTime(nS) {
                 var dataTime = '<p class="datatime">'+array[i].date+'</p>'
 
 
-                result += `<li class="item"><div>`+ dataTime  + `<p class="datacont">`+ array[i].content +`</p><p class="datafrom"><small>`+ from_icon + array[i].from +`</small></p></div></li>`;
+                result += `<li class="item"><div>`+ dataTime  + `<p class="datacont">`+ array[i].content +`</p><p class="datafrom"><small>`+ from_icon + decodeURIComponent(array[i].from) +`</small></p></div></li>`;
             }
         } else {
             result += '!{_p("aside.card_funds.zero")}';
