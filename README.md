@@ -1,7 +1,7 @@
 # 叨叨点啥
 哔哔点啥的白嫖版本。基于github的issue及vercel api搭建。
 
-### ios 快捷指令
+### ios 快捷指令 
 https://www.icloud.com/shortcuts/06fc462d4b4b4f668b16cb11e2e9d010
 ___
 
