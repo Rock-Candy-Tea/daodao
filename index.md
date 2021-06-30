@@ -45,6 +45,6 @@ date: 2021-03-27 18:24:04
     .timeline ul li div{width:calc(100vw - 75px);left:30px;}
   }
 </style>
-<script data-pjax src="https://cdn.jsdelivr.net/gh/Zfour/daodao/daodao.js">
+<script data-pjax src="https://cdn.jsdelivr.net/gh/junono97/daodao/daodao.js">
 
 </script>
