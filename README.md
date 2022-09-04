@@ -1,3 +1,5 @@
+# vercel被墙了
+demo域名由 https://daodao-three.vercel.app 替换为 https://daodao.zfe.space/
 # 叨叨点啥
 哔哔点啥的白嫖版本。基于github的issue及vercel api搭建。
 
